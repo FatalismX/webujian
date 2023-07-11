@@ -22,7 +22,7 @@ Route::get('/login', [AdminController::class, 'login'])->name('login');
 Route::post('/login', [AdminController::class, 'loginAuth'])->name('login.auth');
 Route::get('logout', [AdminController::class, 'logout'])->name('logout');
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth', 'Admin']], function () {
     Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
 
     Route::get('ujian', [UjianController::class, 'index'])->name('ujian');
@@ -38,4 +38,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/peserta/edit/{id}', [PesertaController::class, 'edit'])->name('peserta.edit');
     Route::post('/peserta/update/{id}', [PesertaController::class, 'update'])->name('peserta.update');
     Route::delete('peserta/{id}', [PesertaController::class, 'destroy'])->name('peserta.destroy');
+});
+
+Route::group(['middleware' => ['auth', 'Peserta']], function () {
+    Route::get('/dashboard-peserta', [AdminController::class, 'dashboard_peserta'])->name('dashboard-peserta');
 });

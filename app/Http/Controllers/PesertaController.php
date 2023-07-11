@@ -48,7 +48,7 @@ class pesertaController extends Controller
         $peserta->asalsekolah=$request->asalsekolah;
         $peserta->jeniskelamin=$request->jeniskelamin;
         $peserta->username=$request->username;
-        $peserta->password=$request->password;
+        $peserta->password=bcrypt($request->password);
         $peserta->roles='user';
 
         $peserta->save();
@@ -87,12 +87,12 @@ class pesertaController extends Controller
     public function update(Request $request, $id)
     {
         $peserta = User::where('id', $id)->first();
-        
+
         $peserta->nama=$request->nama;
         $peserta->asalsekolah=$request->asalsekolah;
         $peserta->jeniskelamin=$request->jeniskelamin;
         $peserta->username=$request->username;
-        $peserta->password=$request->password;
+        $peserta->password=bcrypt($request->password);
 
         $peserta->update();
         return redirect('peserta');

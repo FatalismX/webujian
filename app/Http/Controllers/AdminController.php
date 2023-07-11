@@ -14,6 +14,11 @@ class AdminController extends Controller
         return view('admin.dashboard.dashboard', compact('jumlahdata'));
     }
 
+    public function dashboard_peserta()
+    {
+        return view('peserta.dashboard');
+    }
+
     public function login()
     {
         return view('auth.login');
@@ -29,10 +34,9 @@ class AdminController extends Controller
             if (!Auth::User()->roles == 'user') {
                 return redirect()->route('dashboard');
                 return view('Admin.Dashboard.dashboard')->with('users', $request);
+            }else{
+                return redirect('/dashboard-peserta');
             }
-            return back()->withErrors([
-                'password' => 'Username atau Password anda salah',
-            ]);
         }
         return back()->withErrors([
             'password' => 'Username atau Password anda salah',
